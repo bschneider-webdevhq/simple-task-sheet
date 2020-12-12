@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
+        integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <!-- My CSS File Here-->
+    <!-- CSS, dynamically appends strikethroughs to list items clicked on. See jQuery below. -->
+    <style>
+        li {
+            list-style-type: none;
+            text-align: center;
+            margin-right: 40px;
+        }
+
+        .stk {
+            text-decoration: line-through;
+        }
+
+        label {
+            font-weight: 500;
+        }
+    </style>
+
+    <title>Simple List</title>
+</head>
+
+<body>
+    <header>
+        <div class="container-fluid">
+            <div class="row text-light" style="background-color: #424148; box-shadow: 0px 0.25px 2px #000;">
+                <div class="col-11 pt-1">
+                    <div>
+                        <h3>Simple List</h3>
+                    </div>
+                </div>
+                <div class="col-1">
+                    <div>
+                        <h3 class="fas fa-info-circle pt-2"></h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <div class="container-fluid mt-3">
+        <div class="row border border-light rounded" style="background-color: #B1B1B199;">
+            <div class="col-12 col-md-6">
+                <div class="bg-light text-center border border-dark rounded mt-3 mb-3">
+                    <h2 class="bg-warning border border-warning rounded" style="box-shadow: 0px 1px 2px #6C3600;">To-Do List</h2>
+                    <ul id="list">
+                        <li>Butter</li>
+                        <li>Milk</li>
+                        <li id="egg">Eggs</li>
+                        <li id="bread">Bread</li>
+                        <li>Cheese</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-12 col-md-6 bg-white">
+                <div>
+                    <label for="button">Add Item To List</label>
+                    <input class="form-control" type="text" id="newItem" placeholder="New Item">
+                    <input class="form-control btn btn-primary mt-1 mb-1" type="submit" id="button">
+                </div>
+                <br>
+                <div>
+                    <label for="titleRename">Rename Your List</label>
+                    <input class="form-control" type="text" id="titleRename" name="titleRename"
+                        placeholder="Your New List Name">
+                    <button class="form-control btn btn-primary mt-1 mb-1" type="button">Rename</button>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-1">
+            <div class="col-6 col-md-4">
+                <div>
+                    <label for="remove">Clear Completed Items</label>
+                    <p style="height: 3em;">Delete all items marked as completed.</p>
+                    <button class="btn btn-danger form-control" type="button" id="removeButton"
+                        name="remove">Clear</button>
+                </div>
+            </div>
+            <div class="col-6 col-md-4">
+                <div>
+                    <label for="remove">Clear All Items</label>
+                    <p style="height: 3em;">Remove both complete and incomplete items from your list.</p>
+                    <button class="btn btn-danger form-control" type="button" id="removeButton"
+                        name="remove">Clear</button>
+                </div>
+            </div>
+            <div class="col-12 col-md-4" id="donate">
+                <div>
+                    <label for="remove">Donate</label>
+                    <p style="height: 3em;">100% of proceeds go to the XYZ Foundation of the ABC.</p>
+                    <button class="btn btn-danger form-control" type="button" id="removeButton" name="remove">Donate
+                        via. Stripe</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer>
+        <div class="container-fluid mt-3">
+            <div class="row text-light text-center"
+                style="background-color: #424148; box-shadow: 0px -0.25px 2px #000;">
+                <div class="col-12 pt-2">
+                    <div>
+                        <p>Made by WebDevHQ, LLC</p>
+                    </div>
+                </div>
+            </div>
+            <div class="row text-light text-center" style="background-color: #424148;">
+                <div class="col-4">
+                    <div>
+                    </div>
+                </div>
+                <div class="col-1">
+                    <div>
+                        <i class="fab fa-facebook-square fa-2x"></i>
+                    </div>
+                </div>
+                <div class="col-1">
+                    <div>
+                        <i class="fab fa-instagram-square fa-2x"></i>
+                    </div>
+                </div>
+                <div class="col-1">
+                    <div>
+                        <i class="fab fa-twitter-square fa-2x"></i>
+                    </div>
+                </div>
+                <div class="col-1">
+                    <div>
+                        <i class="fab fa-tiktok fa-2x"></i>
+                    </div>
+                </div>
+                <div class="col-4">
+                    <div>
+                    </div>
+                </div>
+            </div>
+            <div class="row text-light text-right" style="background-color: #424148; ">
+                <div class="col-12">
+                    <div>
+                        <p class="mt-5"><a class="text-light fas fa-arrow-circle-up" href="#"
+                                style="text-decoration: none;"> Back to Top</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+    </footer>
+
+
+
+
+    <!-- Scripts begin here-->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+    <script>
+        // jQuery
+        $(document).ready(() => {
+
+            $("#egg").html("<strike>Eggs</strike>");
+            $("#bread").html("<strike>Bread</strike>");
+
+            // let newItem = $("#newItem").val("");
+
+            $("#list").click(() => {
+                if (event.target.tagName.toLowerCase() == "strike") {
+                    $(event.target).parent().addClass("stk");
+                }
+                else {
+                    $(event.target).addClass("stk");
+                }
+            })
+
+            $("#button").click(() => {
+
+                let inputValue = $("#newItem").html("value").val()
+                let newItem = $("#newItem").val(inputValue);
+                $("#list").append("<li>" + newItem.val() + "</li>");
+            }
+            )
+
+            // Removes list items by locating either their "strike" or "stk" class.
+            $("#removeButton").click(() => {
+                let itemsToClear = $("li").find("strike");
+                let dynamicItemsToClear = $(".stk");
+                $(itemsToClear).parent().remove();
+                $(dynamicItemsToClear).remove();
+            }
+
+            )
+        });
+
+        /* Footnotes
+        There are two ways to make sure that the user's input is appended to the list.
+
+        1. The first is by declaring a variable as a string, using jQuery, by specifying the <input> using the ID selector, and using the .val() method with an empty string when the page loads.
+
+        This tells the program that the variable is a string, and initalizes the starting input in that textbox as a blank string value.
+
+        Then, using JavaScript, use the .append() method to add that item to the list by referencing the value of the input again with the dynamic user content.
+
+
+        2. The second is by declaring two variables on button press. The first variable drills down the <input> element by first identifying it with an ID selector, then using the .html() tags to get its "value" property in the HTML, then referencing the value of the value property. The value of the value property is what's held in the variable.
+
+        You then use the same JS solution as in #1 to dynamically append user input to the list.
+
+        You CAN NOT have the variable declared at start in the first solution in the same scope as the button click event, as it will wipe the user generated input and append a blank, undefined value.
+
+        */
+
+        /*This works :) adds a border to a div when visible.
+        if($("#donate").is(":visible")) {
+            $("#donate div").addClass("border border-dark");
+        };
+        */
+
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
+        crossorigin="anonymous"></script>
+    <script src="https://kit.fontawesome.com/8906efac00.js" crossorigin="anonymous"></script>
+</body>
+
+
+</html>
