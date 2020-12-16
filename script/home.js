@@ -4,22 +4,25 @@ $(document).ready(() => {
 
     $("#myListName").html(localStorage.getItem("list-title"));
 
-    for (i = 0; i < localStorage.length-1; i++) {
+    for (i = 0; i < localStorage.length - 1; i++) {
         $("#list").append("<li>" + localStorage.getItem([i]) + "</li>");
     }
 
     // let newItem = $("#newItem").val("");
 
+
     $("#list").click(() => {
 
         $(event.target).addClass("stk");
         $(event.target).siblings("div").addClass("stk");
+        $(event.target).siblings("div").children("i").removeClass("far fa-circle");
+        $(event.target).siblings("div .list-end").children("i").addClass("far fa-check-circle");
     });
 
     $("#addButton").click(() => {
         let inputValue = $("#newItem").html("value").val()
         let newItem = $("#newItem").val(inputValue);
-        $("#list").append("<div class='row no-gutters bg-alternate'><div class='col-1 list-beg'></div><li class='col-10 text-center'>" + newItem.val() + "</li><div class='col-1'>0</div></div>");
+        $("#list").append("<div class='row no-gutters bg-alternate'><div class='col-1 list-beg'><i class='fas fa-bars'></i></div><li class='col-10 text-center'>" + newItem.val() + "</li><div class='col-1 list-end'><i class='far fa-circle'></i></div></div>");
     });
 
     // Removes list items by locating either their "strike" or "stk" class.
@@ -47,10 +50,12 @@ $(document).ready(() => {
         collectUserTitle();
     })
 
+
+
     function collectUserItems() {
         let num = 0;
         let myDict = {};
-        $("#list").children("li").each(function () {
+        $("#list").children("div").children("li").each(function () {
             // Stores first li value
             let param = $(this).html();
             // Appends Dict with li as param
@@ -62,18 +67,18 @@ $(document).ready(() => {
         });
     }
 
-    function collectUserTitle(){
+    function collectUserTitle() {
         let $currentListTitle = $("#myListName").html();
         localStorage.setItem("list-title", $currentListTitle);
     }
 
     // Sends list items to local storage before page close
-    $(window).on("beforeunload", function(){
+    $(window).on("beforeunload", function () {
         localStorage.clear();
         collectUserItems();
         collectUserTitle();
     });
-    
+
 });
 
 
