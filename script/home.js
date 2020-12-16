@@ -2,28 +2,25 @@
 // jQuery
 $(document).ready(() => {
 
-    for (i = 0; i < localStorage.length; i++) {
+    $("#myListName").html(localStorage.getItem("list-title"));
+
+    for (i = 0; i < localStorage.length-1; i++) {
         $("#list").append("<li>" + localStorage.getItem([i]) + "</li>");
     }
 
     // let newItem = $("#newItem").val("");
 
     $("#list").click(() => {
-        if (event.target.tagName.toLowerCase() == "strike") {
-            $(event.target).parent().addClass("stk");
-        }
-        else {
-            $(event.target).addClass("stk");
-        }
+
+        $(event.target).addClass("stk");
+        $(event.target).siblings("div").addClass("stk");
     });
 
-    $("#button").click(() => {
-
+    $("#addButton").click(() => {
         let inputValue = $("#newItem").html("value").val()
         let newItem = $("#newItem").val(inputValue);
-        $("#list").append("<li>" + newItem.val() + "</li>");
-    }
-    );
+        $("#list").append("<div class='row no-gutters bg-alternate'><div class='col-1 list-beg'></div><li class='col-10 text-center'>" + newItem.val() + "</li><div class='col-1'>0</div></div>");
+    });
 
     // Removes list items by locating either their "strike" or "stk" class.
     $("#removeButton").click(() => {
@@ -34,7 +31,7 @@ $(document).ready(() => {
     });
 
     $("#removeAll").click(() => {
-        $("#list").children("li").remove()
+        $("#list").children().remove()
     });
 
     $("#listRenameConfirm").click(() => {
@@ -47,11 +44,10 @@ $(document).ready(() => {
     // on doc load, append those items to the list, or set a cahce that holds those items
 
     $("#testButton").click(() => {
-        collectUserItems();
+        collectUserTitle();
     })
 
     function collectUserItems() {
-        localStorage.clear();
         let num = 0;
         let myDict = {};
         $("#list").children("li").each(function () {
@@ -63,14 +59,19 @@ $(document).ready(() => {
             // next li
             num++;
             // Loops do not work, all li items are appended to the same dict through each loop pass. ie. 5 list items in a single dict will have 25 (5x5) keys.
-        }
-        );
-        console.log(localStorage)
+        });
+    }
+
+    function collectUserTitle(){
+        let $currentListTitle = $("#myListName").html();
+        localStorage.setItem("list-title", $currentListTitle);
     }
 
     // Sends list items to local storage before page close
     $(window).on("beforeunload", function(){
+        localStorage.clear();
         collectUserItems();
+        collectUserTitle();
     });
     
 });

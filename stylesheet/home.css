@@ -1,15 +1,39 @@
+::-webkit-scrollbar {
+    display: none;
+}
+
 a {
     text-decoration: none;
 }
 
-li {
+/* Removes Indentation from List Bullets */
+ul {
+    padding: 0;
     list-style-type: none;
-    text-align: center;
-    margin-right: 40px;
 }
+
+li {
+    text-align: center;
+}
+
+.bg-alternate:nth-child(2n){
+    background-color: lightgrey
+}
+
 
 label {
     font-weight: 500;
+}
+
+small {
+    float: left;
+    margin-bottom: 0.5em;
+}
+
+
+
+span {
+    float: left;
 }
 
 .stk {
@@ -29,12 +53,14 @@ label {
 }
 
 .button-p {
-    height: 3em;
+    height: em;
 }
 
 #desk {
-    background-color: #B1B1B199;
+    background-color: #deb88990;
 }
+
+
 
 #desk div div h2 {
     box-shadow: 0px 1px 2px #6C3600;

@@ -1,0 +1,13 @@
+/* Breakpoints:
+    Small - 576px
+    Medium - 768px
+    Large - 992px
+    XL - 1200px
+*/
+
+@media (max-width: 576px) {
+   .button-p {
+       height: 4em;
+   }
+  
+}
