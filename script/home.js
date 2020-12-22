@@ -11,36 +11,64 @@ $(document).ready(() => {
     }
 
     // User drags on a list item.
-    // Output: List item is selected and dragged using jQuery UI.
-    // Output: Onmouseup, item is rearranged based on user position.
-    
-    // Bug: List sort works, but sorts by clicking anywhre in list item.
-    // Solution: Need to isolate selector to only run sortable() when users click and drag hamburger.
-    $("#list").sortable(); 
-   
+    // Output: List item is selected and dragged using jQuery UI when clicking and moving a list's hamburger icon.
+    // Note: handle key behaves as a JSON option.
+    $("#list").sortable({
+        handle: "i.fas"
+    })
 
     // Click List Item. 
     // Output (If): Strikethough added, and icon changed to check mark.
     // Output (Else): Strikethough removed, icon changed to circle.
+    // Note: First Conditional checks if the user clicks the item's hamburger or check mark icon to prevent strikethroughs on icons.
+    // Bug: Refactor this, only clicking the list item adds the crossthrough. 
     $("ul#list").click(() => {
-        if ($(event.target).hasClass("stk")) {
-            $(event.target).removeClass("stk");
-            $(event.target).siblings("div .list-end").children("i").removeClass("far fa-check-circle");
-            $(event.target).siblings("div .list-end").children("i").addClass("far fa-circle");
+        completeItem();
+        if ($(event.target).hasClass("fas") || ($(event.target).hasClass("far"))) {
+            null;
         } else {
-            $(event.target).addClass("stk");
-            $(event.target).siblings("div").addClass("stk");
-            $(event.target).siblings("div").children("i").removeClass("far fa-circle");
-            $(event.target).siblings("div .list-end").children("i").addClass("far fa-check-circle");
+            if ($(event.target).hasClass("stk")) {
+                $(event.target).removeClass("stk");
+                $(event.target).siblings("div .list-end").children("i").removeClass("far fa-check-circle");
+                $(event.target).siblings("div .list-end").children("i").addClass("far fa-circle");
+            } else {
+                $(event.target).addClass("stk");
+                $(event.target).siblings("div").addClass("stk");
+                $(event.target).siblings("div").children("i").removeClass("far fa-circle");
+                $(event.target).siblings("div .list-end").children("i").addClass("far fa-check-circle");
+            }
         }
     });
+
+    /*
+   $(document).click(() => {
+       console.log($(event.target).attr("class"));
+   })
+*/
+    function completeItem() {
+
+        let final = $(event.target).attr("class");
+        switch (final) {
+            case "fas fa-bars sortBurger ui-sortable-handle":
+                break;
+            case "col-10 text-center":
+                console.log("bar");
+                break;
+            case "far fa-circle":
+                case "far fa-check-circle":
+                console.log("foobar");
+                break;
+            default:
+                console.log(final);
+        }
+    }
 
     // Click Add Button
     // Output: Function grabs input value next to add button and drills down to its value parameter and sets the value of the value parameter as the inputValue variable.
     // Output: Variable is appended to the list with Bootstrap classes that add icons and styling to the item.
     $("#addButton").click(() => {
         let inputValue = $("#newItem").html("value").val()
-        $("#list").append("<div class='row no-gutters bg-alternate'><div class='col-1 list-beg'><i class='fas fa-bars' id='sortBurger'></i></div><li class='col-10 text-center'>" + inputValue + "</li><div class='col-1 list-end'><i class='far fa-circle'></i></div></div>");
+        $("#list").append("<div class='row no-gutters bg-alternate'><div class='col-1 list-beg'><i class='fas fa-bars sortBurger'></i></div><li class='col-10 text-center'>" + inputValue + "</li><div class='col-1 list-end'><i class='far fa-circle'></i></div></div>");
     });
 
     // Removes list items by locating either their "strike" or "stk" class.
