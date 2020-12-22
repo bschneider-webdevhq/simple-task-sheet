@@ -1,28 +1,46 @@
-
 // jQuery
 $(document).ready(() => {
 
+    // Output: Grabs list title from local storage and sets it.
     $("#myListName").html(localStorage.getItem("list-title"));
 
+    // Output: Takes all items in local storage, minus one (the title element),
+    // and appends them to the user's list.
     for (i = 0; i < localStorage.length - 1; i++) {
-        $("#list").append("<li>" + localStorage.getItem([i]) + "</li>");
+        $("#list").append(localStorage.getItem([i]));
     }
 
-    // let newItem = $("#newItem").val("");
+    // User drags on a list item.
+    // Output: List item is selected and dragged using jQuery UI.
+    // Output: Onmouseup, item is rearranged based on user position.
+    
+    // Bug: List sort works, but sorts by clicking anywhre in list item.
+    // Solution: Need to isolate selector to only run sortable() when users click and drag hamburger.
+    $("#list").sortable(); 
+   
 
-
-    $("#list").click(() => {
-
-        $(event.target).addClass("stk");
-        $(event.target).siblings("div").addClass("stk");
-        $(event.target).siblings("div").children("i").removeClass("far fa-circle");
-        $(event.target).siblings("div .list-end").children("i").addClass("far fa-check-circle");
+    // Click List Item. 
+    // Output (If): Strikethough added, and icon changed to check mark.
+    // Output (Else): Strikethough removed, icon changed to circle.
+    $("ul#list").click(() => {
+        if ($(event.target).hasClass("stk")) {
+            $(event.target).removeClass("stk");
+            $(event.target).siblings("div .list-end").children("i").removeClass("far fa-check-circle");
+            $(event.target).siblings("div .list-end").children("i").addClass("far fa-circle");
+        } else {
+            $(event.target).addClass("stk");
+            $(event.target).siblings("div").addClass("stk");
+            $(event.target).siblings("div").children("i").removeClass("far fa-circle");
+            $(event.target).siblings("div .list-end").children("i").addClass("far fa-check-circle");
+        }
     });
 
+    // Click Add Button
+    // Output: Function grabs input value next to add button and drills down to its value parameter and sets the value of the value parameter as the inputValue variable.
+    // Output: Variable is appended to the list with Bootstrap classes that add icons and styling to the item.
     $("#addButton").click(() => {
         let inputValue = $("#newItem").html("value").val()
-        let newItem = $("#newItem").val(inputValue);
-        $("#list").append("<div class='row no-gutters bg-alternate'><div class='col-1 list-beg'><i class='fas fa-bars'></i></div><li class='col-10 text-center'>" + newItem.val() + "</li><div class='col-1 list-end'><i class='far fa-circle'></i></div></div>");
+        $("#list").append("<div class='row no-gutters bg-alternate'><div class='col-1 list-beg'><i class='fas fa-bars' id='sortBurger'></i></div><li class='col-10 text-center'>" + inputValue + "</li><div class='col-1 list-end'><i class='far fa-circle'></i></div></div>");
     });
 
     // Removes list items by locating either their "strike" or "stk" class.
@@ -33,52 +51,59 @@ $(document).ready(() => {
         $(dynamicItemsToClear).remove();
     });
 
+    // Click Clear All
+    // Output: All <div class="row"> elements and there children are cleared from the user's list.
     $("#removeAll").click(() => {
         $("#list").children().remove()
     });
 
+    // Create new List Name, then click Rename
+    // Output: Stores input value, drilling down to the value parameter, and storing the value of "value".
+    // Output: jQuery selects ID of Title, and rewrites its html, as a string, to what is stored in the newListName variable.
     $("#listRenameConfirm").click(() => {
         let newListName = $("#titleRename").html("value").val();
         $("#myListName").text(newListName);
     });
 
-    // on close, func collects items in list, and storages them to local storage.
-
-    // on doc load, append those items to the list, or set a cahce that holds those items
-
+    // Temp test local storage button.
     $("#testButton").click(() => {
-        collectUserTitle();
+        collectUserItems();
+        console.log(localStorage);
     })
 
-
-
+    // Output: Each children <div> with class = .row is stored as the value in the param variable.
+    // Output: That variable is appended to the dictionary "myDict" as a value with a numeric key.
+    // Output: For each list item, the key integer increases by 1. ie. {1: "listItem1", 2: "listItem2"}
+    // Notes: param = each <div class="row"><div><i><li></li><i></div><div> as html.
+    // Notes: myDict = {num: param, num, param}
     function collectUserItems() {
         let num = 0;
         let myDict = {};
-        $("#list").children("div").children("li").each(function () {
-            // Stores first li value
+        $("#list").each(function () {
             let param = $(this).html();
-            // Appends Dict with li as param
             myDict[num] = param;
             localStorage.setItem(num, param)
-            // next li
             num++;
-            // Loops do not work, all li items are appended to the same dict through each loop pass. ie. 5 list items in a single dict will have 25 (5x5) keys.
+            // Loops do not work, all li items are appended to the same dict through each loop pass.
+            // ie. 5 list items in a single dict will have 25 (5x5) keys.
         });
     }
 
+    // Output: Variable stores html of List Title as a ($) jQuery Object.
+    // Output: Local storage sets the List Title in this format {list-title: $currentListTitle}
     function collectUserTitle() {
         let $currentListTitle = $("#myListName").html();
         localStorage.setItem("list-title", $currentListTitle);
     }
 
-    // Sends list items to local storage before page close
+    // User closes and revists page, or reloads page.
+    // Output: Local Storage is cleared.
+    // Output: User's list title and list items are stored to local storage.
     $(window).on("beforeunload", function () {
         localStorage.clear();
         collectUserItems();
         collectUserTitle();
     });
-
 });
 
 
