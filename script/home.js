@@ -14,7 +14,7 @@ $(document).ready(() => {
     // Output: List item is selected and dragged using jQuery UI when clicking and moving a list's hamburger icon.
     // Note: handle key behaves as a JSON option.
     $("#list").sortable({
-        handle: "i.fas"
+        // handle: "i.fas"
     })
 
     // Click List Item. 
@@ -23,7 +23,7 @@ $(document).ready(() => {
     // Note: First Conditional checks if the user clicks the item's hamburger or check mark icon to prevent strikethroughs on icons.
     // Bug: Refactor this, only clicking the list item adds the crossthrough. 
     $("ul#list").click(() => {
-        completeItem();
+        // completeItem();
         if ($(event.target).hasClass("fas") || ($(event.target).hasClass("far"))) {
             null;
         } else {
@@ -49,13 +49,16 @@ $(document).ready(() => {
 
         let final = $(event.target).attr("class");
         switch (final) {
+            // Hamburger click
             case "fas fa-bars sortBurger ui-sortable-handle":
                 break;
+            // Li click
             case "col-10 text-center":
                 console.log("bar");
                 break;
             case "far fa-circle":
                 case "far fa-check-circle":
+
                 console.log("foobar");
                 break;
             default:
