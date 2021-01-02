@@ -17,7 +17,7 @@ $(document).ready(() => {
         // handle: "i.fas"
     })
 
-    // Click List Item. 
+    // Click List Item.
     // Output (If): Strikethough added, and icon changed to check mark.
     // Output (Else): Strikethough removed, icon changed to circle.
     // Note: First Conditional checks if the user clicks the item's hamburger or check mark icon to prevent strikethroughs on icons.
