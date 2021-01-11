@@ -12,10 +12,8 @@ $(document).ready(() => {
 
     // User drags on a list item.
     // Output: List item is selected and dragged using jQuery UI when clicking and moving a list's hamburger icon.
-    // Note: handle key behaves as a JSON option.
-    $("#list").sortable({
-        // handle: "i.fas"
-    })
+    // Note: keys in function behave as a JSON option.
+    $("#list").sortable();
 
     // Click List Item.
     // Output (If): Strikethough added, and icon changed to check mark.
@@ -29,6 +27,7 @@ $(document).ready(() => {
         } else {
             if ($(event.target).hasClass("stk")) {
                 $(event.target).removeClass("stk");
+                $(event.target).siblings("div").removeClass("stk");
                 $(event.target).siblings("div .list-end").children("i").removeClass("far fa-check-circle");
                 $(event.target).siblings("div .list-end").children("i").addClass("far fa-circle");
             } else {
@@ -38,13 +37,14 @@ $(document).ready(() => {
                 $(event.target).siblings("div .list-end").children("i").addClass("far fa-check-circle");
             }
         }
+        ColorAlts();
     });
 
-    /*
-   $(document).click(() => {
-       console.log($(event.target).attr("class"));
-   })
-*/
+    function ColorAlts() {
+        let liTotal = $("#list").children();
+        console.log(liTotal.length);
+    }
+
     function completeItem() {
 
         let final = $(event.target).attr("class");

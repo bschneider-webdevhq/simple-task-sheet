@@ -1,0 +1,3 @@
+* Isolate sorting to just hamburger interaction, not the whole list item.
+
+* Use ColorAlts() function to add a grey fill to alternate list items. Items that are removed or added don't account for the change.
