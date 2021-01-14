@@ -13,58 +13,94 @@ $(document).ready(() => {
     // User drags on a list item.
     // Output: List item is selected and dragged using jQuery UI when clicking and moving a list's hamburger icon.
     // Note: keys in function behave as a JSON option.
-    $("#list").sortable();
+    // $("#list").sortable();
 
     // Click List Item.
     // Output (If): Strikethough added, and icon changed to check mark.
     // Output (Else): Strikethough removed, icon changed to circle.
     // Note: First Conditional checks if the user clicks the item's hamburger or check mark icon to prevent strikethroughs on icons.
     // Bug: Refactor this, only clicking the list item adds the crossthrough. 
-    $("ul#list").click(() => {
-        // completeItem();
-        if ($(event.target).hasClass("fas") || ($(event.target).hasClass("far"))) {
+    $("ul#list").on("pointerdown", () => {
+        if (($(event.target).hasClass("far"))) {
             null;
+        } else if ($(event.target).hasClass("fas")) {
+            // Initalize Sortable
+            $("#list").sortable();
+            $("#list").sortable("enable");
+            $("ul#list").on("pointerup", () => {
+                $("#list").sortable("disable");
+            })
         } else {
-            if ($(event.target).hasClass("stk")) {
+
+            $(event.target).toggleClass("stk");
+            console.log($(event.target).attr("class"));
+
+            // first create two conditionals where when the strike class is added, run that conditional, and vice versa
+            // refactor everything into a switch statement
+
+            /*
+            // has class breaks this funcionality...
+            if ($(event.target).hasClass("")) {
                 $(event.target).removeClass("stk");
                 $(event.target).siblings("div").removeClass("stk");
                 $(event.target).siblings("div .list-end").children("i").removeClass("far fa-check-circle");
                 $(event.target).siblings("div .list-end").children("i").addClass("far fa-circle");
             } else {
+                console.log($(event.target).attr("class"));
                 $(event.target).addClass("stk");
                 $(event.target).siblings("div").addClass("stk");
                 $(event.target).siblings("div").children("i").removeClass("far fa-circle");
                 $(event.target).siblings("div .list-end").children("i").addClass("far fa-check-circle");
             }
+            */
         }
-        ColorAlts();
     });
 
-    function ColorAlts() {
-        let liTotal = $("#list").children();
-        console.log(liTotal.length);
+    // Count is cached after sorting placeholder is destroyed. Prevents backgrounds from counting the placeholder as a child list item.
+    $(this).on("mouseup pointerup", () => {
+        let liTotal = $("#list").children("div.ui-sortable-handle");
+        ColorAlts(liTotal);
+    });
+
+    function ColorAlts(count) {
+        for (i = 0; i < count.length; i++) {
+            if (i % 2 === 1) {
+                $(count[i]).css("background-color", "#d3d3d3");
+            }
+            else {
+                $(count[i]).css("background-color", "#fff");
+            }
+        }
     }
 
+    /*
     function completeItem() {
 
         let final = $(event.target).attr("class");
         switch (final) {
             // Hamburger click
-            case "fas fa-bars sortBurger ui-sortable-handle":
+            case "fas fa-bars sortBurger":
+                $("#list").sortable();
                 break;
             // Li click
             case "col-10 text-center":
+                $("#list").on("mousedrag", function () {
+                    $("#list").sortable("disable");
+                })
                 console.log("bar");
                 break;
             case "far fa-circle":
-                case "far fa-check-circle":
-
+            case "far fa-check-circle":
+                $("#list").sortable("disable");
                 console.log("foobar");
                 break;
             default:
+                $("#list").sortable("disable");
                 console.log(final);
         }
+        $("#list").sortable();
     }
+    */
 
     // Click Add Button
     // Output: Function grabs input value next to add button and drills down to its value parameter and sets the value of the value parameter as the inputValue variable.
