@@ -17,7 +17,7 @@ li {
 }
 
 .bg-alternate:nth-child(2n){
-    background-color: lightgrey
+    background-color: #d3d3d3
 }
 
 

@@ -36,10 +36,10 @@ $(document).ready(() => {
     function ColorAlts(count) {
         for (i = 0; i < count.length; i++) {
             if (i % 2 === 1) {
-                $(count[i]).css("background-color", "#d3d3d3");
+                $(count[i]).css("background-color", "#D3D3D3");
             }
             else {
-                $(count[i]).css("background-color", "#fff");
+                $(count[i]).css("background-color", "#F8F9FA");
             }
         }
     }
@@ -54,6 +54,27 @@ $(document).ready(() => {
     $("#addButton").click(() => {
         let inputValue = $("#newItem").html("value").val()
         $("#list").append("<div class='row no-gutters bg-alternate'><div class='col-1 list-beg'><i class='fas fa-bars sortBurger'></i></div><li class='col-10 text-center'>" + inputValue + "</li><div class='col-1 list-end'><i class='far fa-circle'></i></div></div>");
+    });
+
+    let coroutine = (func, time) => {
+        // setTimeout() must invoke a function. If anything else, it is triggered immediately without a time delay
+        setTimeout(func, time)
+    }
+
+    /* If Enter (.key) is clicked when highlighting the Add Item textbox, trigger the Add + functionality
+    .which and .keyCode are depreciated and should not be used.
+     */
+    $("#newItem").on("keypress", (e) => {
+        // listen for enter with first if, then an if else for length
+        if ((e.key == "Enter") && ($("#newItem").val().length > 0)) {
+            $("#addButton").click();
+        } else {
+            const orig = $("#addLabel").html();
+            const err = "1 or More Characters Required";
+            console.log("bar");
+            $("#addLabel").append();
+            coroutine(() => { $("#addLabel").html(orig) }, 2000);
+        }
     });
 
     // #6
@@ -74,6 +95,12 @@ $(document).ready(() => {
         let newListName = $("#titleRename").html("value").val();
         $("#myListName").text(newListName);
     });
+
+    $("#titleRename").keypress((e) => {
+        if (e.which == 13) {
+
+        }
+    })
 
     // #9:
     function collectUserItems() {
@@ -172,11 +199,11 @@ Output: User's list title and list items are stored to local storage.
 
 ███████╗██████╗ ██████╗███████████╗   ██╗██████╗███████████████╗
 ██╔════██╔═══████╔═══██╚══██╔══████╗  ████╔═══██╚══██╔══██╔════╝
-█████╗ ██║   ████║   ██║  ██║  ██╔██╗ ████║   ██║  ██║  █████╗  
-██╔══╝ ██║   ████║   ██║  ██║  ██║╚██╗████║   ██║  ██║  ██╔══╝  
+█████╗ ██║   ████║   ██║  ██║  ██╔██╗ ████║   ██║  ██║  █████╗
+██╔══╝ ██║   ████║   ██║  ██║  ██║╚██╗████║   ██║  ██║  ██╔══╝
 ██║    ╚██████╔╚██████╔╝  ██║  ██║ ╚████╚██████╔╝  ██║  ███████╗
 ╚═╝     ╚═════╝ ╚═════╝   ╚═╝  ╚═╝  ╚═══╝╚═════╝   ╚═╝  ╚══════╝
-                                                                
+
 Functionality for the "AddButton" feature can be compiled in one of two ways:
 
 1. The first is by declaring a variable as a string, using jQuery, by specifying the <input> using the ID selector, and using the .val() method with an empty string when the page loads.
@@ -198,4 +225,4 @@ You CAN NOT have the variable declared at start in the first solution in the sam
 if($("#donate").is(":visible")) {
     $("#donate div").addClass("border border-dark");
 };
-*/                                 
+*/

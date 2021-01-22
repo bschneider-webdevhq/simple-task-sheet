@@ -1,5 +1,1 @@
-* Isolate sorting to just hamburger interaction, not the whole list item.
-
-* Hamburger menu can be "Marked as Complete" (changes color when clicked on)
-
-* 
+* Any text field should utilize enter.
