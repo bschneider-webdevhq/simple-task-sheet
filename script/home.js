@@ -1,5 +1,5 @@
 // jQuery
-$(document).ready(() => {
+jQuery(() => {
 
     // # 1
     $("#myListName").html(localStorage.getItem("list-title"));
@@ -11,9 +11,9 @@ $(document).ready(() => {
 
     // #3
     $("ul#list").on("pointerdown", () => {
-        if (($(event.target).hasClass("far"))) {
+        if ($(event.target).hasClass("far")) {
             null;
-        } else if ($(event.target).hasClass("fas")) {
+        } else if ($(event.target).hasClass("fas") || $(event.target).hasClass("list-beg")) {
             // Initalize Sortable; 
             $("#list").sortable();
             $("#list").sortable("enable");
@@ -32,8 +32,14 @@ $(document).ready(() => {
         }
     });
 
+    let placeholderTask = () => {
+        if ($("#list").children().length === 0) {
+            $("#list").append("<div class='row no-gutters bg-alternate'><div class='col-1 list-beg'><i class='fas fa-bars sortBurger'></i></div><li class='col-10 text-center'>Create a Task to Get Started</li><div class='col-1 list-end'><i class='far fa-circle'></i></div></div>");
+        }
+    };
+
     // #12: 
-    function ColorAlts(count) {
+    let ColorAlts = (count) => {
         for (i = 0; i < count.length; i++) {
             if (i % 2 === 1) {
                 $(count[i]).css("background-color", "#D3D3D3");
@@ -42,7 +48,7 @@ $(document).ready(() => {
                 $(count[i]).css("background-color", "#F8F9FA");
             }
         }
-    }
+    };
 
     // #4
     $(this).on("mouseup pointerup", () => {
@@ -51,9 +57,10 @@ $(document).ready(() => {
     });
 
     // #5
-    $("#addButton").click(() => {
+    $("#addButton").on("click", () => {
         let inputValue = $("#newItem").html("value").val()
         $("#list").append("<div class='row no-gutters bg-alternate'><div class='col-1 list-beg'><i class='fas fa-bars sortBurger'></i></div><li class='col-10 text-center'>" + inputValue + "</li><div class='col-1 list-end'><i class='far fa-circle'></i></div></div>");
+        $("#newItem").html("value").val("");
     });
 
     let coroutine = (func, time) => {
@@ -64,21 +71,39 @@ $(document).ready(() => {
     /* If Enter (.key) is clicked when highlighting the Add Item textbox, trigger the Add + functionality
     .which and .keyCode are depreciated and should not be used.
      */
-    $("#newItem").on("keypress", (e) => {
-        // listen for enter with first if, then an if else for length
-        if ((e.key == "Enter") && ($("#newItem").val().length > 0)) {
-            $("#addButton").click();
-        } else {
-            const orig = $("#addLabel").html();
-            const err = "1 or More Characters Required";
-            console.log("bar");
-            $("#addLabel").append();
-            coroutine(() => { $("#addLabel").html(orig) }, 2000);
+    $("#newItem, #titleRename").on("keypress", (e) => {
+        if (e.key != "Enter") {
+            return;
+        } else if (e.key == "Enter") {
+            if (($("#newItem").val().length > 1) && ($("#titleRename").val().length > 1)) {
+                $("#addButton").click();
+                $("#listRenameConfirm").click();
+            } else if (($("#newItem").val().length > 1) && ($("#titleRename").val().length === 0)) {
+                $("#addButton").click();
+            } else if (($("#newItem").val().length === 0) && ($("#titleRename").val().length > 1)) {
+                $("#listRenameConfirm").click();
+            } else {
+                const addL = $("#addLabel").html();
+                const renameL = $("#renameLabel").html();
+                const err = "2 or More Characters Required";
+                if ($("#newItem").val().length === 1) {
+                    $("#addLabel").append("<br><span class='shortLength'> " + err + "</span>");
+                    coroutine(() => {
+                        $("#addLabel").html(addL);
+                    }, 2500);
+                }
+                if ($("#titleRename").val().length === 1) {
+                    $("#renameLabel").append("<br><span class='shortLength'> " + err + "</span>");
+                    coroutine(() => {
+                        $("#renameLabel").html(renameL);
+                    }, 2500);
+                }
+            }
         }
     });
 
     // #6
-    $("#removeButton").click(() => {
+    $("#removeButton").on("click", () => {
         let itemsToClear = $("#list").find(".stk");
         $(itemsToClear).parent().remove();
         const liTotal = $("#list").children("div.ui-sortable-handle");
@@ -86,21 +111,22 @@ $(document).ready(() => {
     });
 
     // #7:
-    $("#removeAll").click(() => {
-        $("#list").children().remove()
+    $("#removeAll").on("click", () => {
+        $("#list").children().remove();
+        placeholderTask();
     });
 
     // #8:
-    $("#listRenameConfirm").click(() => {
+    $("#listRenameConfirm").on("click", () => {
         let newListName = $("#titleRename").html("value").val();
         $("#myListName").text(newListName);
+        $("#titleRename").html("value").val("");
     });
 
-    $("#titleRename").keypress((e) => {
-        if (e.which == 13) {
+   
 
-        }
-    })
+    placeholderTask();
+
 
     // #9:
     function collectUserItems() {

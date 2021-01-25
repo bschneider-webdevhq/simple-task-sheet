@@ -1,1 +1,20 @@
-* Any text field should utilize enter.
+Buglog --
+* Clicking "Add" or "Rename" Button allows for blank values to be placed.
+
+* Sorting tasks created using Enter are sometimes incorrectly shaded.
+
+* The placeholder task should disappear after the first task is created.
+
+
+Features --
+
+* Placeholder task should be stylized differently.
+
+* No list items should show an empty list item that disappears upon at least 1 list item.
+
+* Idea to import all items to a list on your iphone.
+
+* Nav Bar Links (Tablet and above) - How it Works (either separate page or YT video), WDHQ
+
+* Overlay on i (Mobile) - X Button, How it Works, WDHQ
+

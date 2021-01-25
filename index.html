@@ -37,6 +37,12 @@
                 <div class="bg-light text-center border border-dark rounded mt-3 mb-3">
                     <h2 class="bg-warning border border-warning rounded" id="myListName">To-Do List</h2>
                     <ul id="list">
+                        <!--
+                        <div class='row no-gutters bg-alternate'>
+                            <div class='col-1 list-beg'><i class='fas fa-bars sortBurger'></i></div>
+                            <li class='col-10 text-center'>Test Task</li>
+                            <div class='col-1 list-end'><i class='far fa-circle'></i></div>
+                        </div> -->
                     </ul>
                 </div>
             </div>
@@ -46,19 +52,20 @@
                     <div class="input-group">
                         <input class="form-control" type="text" id="newItem" placeholder="New Item">
                         <div class="input-group-append">
-                            <button class="btn btn-primary" type="button" id="addButton">Add <i class="fas fa-plus-circle"></i></button>
+                            <button class="btn btn-primary" type="button" id="addButton">Add <i
+                                    class="fas fa-plus-circle"></i></button>
                         </div>
                     </div>
                 </div>
                 <br>
                 <div>
-                    <label for="titleRename">Rename Your List</label>
+                    <label for="titleRename" id="renameLabel">Rename Your List</label>
                     <div class="input-group">
                         <input class="form-control" type="text" id="titleRename" name="titleRename"
                             placeholder="Your New List Name">
                         <div class="input-group-append">
-                            <button class="form-control btn btn-primary" type="button"
-                                id="listRenameConfirm">Rename <i class="fas fa-edit"></i></button>
+                            <button class="form-control btn btn-primary" type="button" id="listRenameConfirm">Rename <i
+                                    class="fas fa-edit"></i></button>
                         </div>
                     </div>
                 </div>
@@ -71,7 +78,8 @@
                     <label for="remove">Clear Items <i class="far fa-window-close"></i></i></label>
                     <br>
                     <small class="button-p"><span class="card mr-1"
-                            style="height: 3.5em; width: 0.125em; background-color: #b1b1b1;"></span>Delete items that are
+                            style="height: 3.5em; width: 0.125em; background-color: #b1b1b1;"></span>Delete items that
+                        are
                         marked as completed.</small>
                     <button class="btn btn-danger form-control" type="button" id="removeButton"
                         name="remove">Clear</button>
@@ -84,8 +92,8 @@
                     <small class="button-p"><span class="card mr-1"
                             style="height: 3.5em; width: 0.125em; background-color: #b1b1b1;"></span>Remove all items
                         from your current list.</small>
-                    <button class="btn btn-danger form-control" type="button" id="removeAll"
-                        name="remove">Clear All</button>
+                    <button class="btn btn-danger form-control" type="button" id="removeAll" name="remove">Clear
+                        All</button>
                 </div>
             </div>
             <div class="col-12 col-md-4 mt-2 mt-md-0" id="donate">
@@ -93,8 +101,10 @@
                     <label for="donateButton">Donate <i class="far fa-smile-beam"></i> </label>
                     <br>
                     <small class="button-p"><span class="card mr-1"
-                        style="height: 3.5em; width: 0.125em; background-color: #b1b1b1;"></span>100% of proceeds go to the XYZ Foundation of the ABC.</small>
-                    <button class="btn btn-danger form-control" type="button" id="donateButton" name="donateButton">Donate
+                            style="height: 3.5em; width: 0.125em; background-color: #b1b1b1;"></span>100% of proceeds go
+                        to the XYZ Foundation of the ABC.</small>
+                    <button class="btn btn-danger form-control" type="button" id="donateButton"
+                        name="donateButton">Donate
                         via. Stripe</button>
                 </div>
             </div>
@@ -159,10 +169,8 @@
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
         integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
         crossorigin="anonymous"></script>
-        <script
-        src="https://code.jquery.com/ui/1.12.0/jquery-ui.js"
-        integrity="sha256-0YPKAwZP7Mp3ALMRVB2i8GXeEndvCq3eSl/WsAl1Ryk="
-        crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.js"
+        integrity="sha256-0YPKAwZP7Mp3ALMRVB2i8GXeEndvCq3eSl/WsAl1Ryk=" crossorigin="anonymous"></script>
     <!-- Crossorigin only needed for resources accessed outside local resource files -->
     <script src="script/jquery-ui.js"></script>
     <!-- Touchpunch script to allow Jquery UI to work on mobile-->
