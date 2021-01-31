@@ -1,7 +1,4 @@
 Buglog --
-* Clicking "Add" or "Rename" Button allows for blank values to be placed.
-
-* Sorting tasks created using Enter are sometimes incorrectly shaded.
 
 * The placeholder task should disappear after the first task is created.
 

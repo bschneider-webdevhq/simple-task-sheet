@@ -34,9 +34,12 @@ jQuery(() => {
 
     let placeholderTask = () => {
         if ($("#list").children().length === 0) {
-            $("#list").append("<div class='row no-gutters bg-alternate'><div class='col-1 list-beg'><i class='fas fa-bars sortBurger'></i></div><li class='col-10 text-center'>Create a Task to Get Started</li><div class='col-1 list-end'><i class='far fa-circle'></i></div></div>");
+            $("#list").append("<div class='row no-gutters bg-alternate' id='placeholderTask'><li class='col-12 text-center'>Create a Task to Get Started</li></div>");
         }
     };
+
+
+    placeholderTask();
 
     // #12: 
     let ColorAlts = (count) => {
@@ -51,16 +54,28 @@ jQuery(() => {
     };
 
     // #4
-    $(this).on("mouseup pointerup", () => {
-        const liTotal = $("#list").children("div.ui-sortable-handle");
-        ColorAlts(liTotal);
+    $("#list").on("pointerup", () => {
+        const liTotal = $("ul#list").children("div").length;
+        console.log(liTotal);
     });
 
     // #5
     $("#addButton").on("click", () => {
-        let inputValue = $("#newItem").html("value").val()
-        $("#list").append("<div class='row no-gutters bg-alternate'><div class='col-1 list-beg'><i class='fas fa-bars sortBurger'></i></div><li class='col-10 text-center'>" + inputValue + "</li><div class='col-1 list-end'><i class='far fa-circle'></i></div></div>");
-        $("#newItem").html("value").val("");
+        if ($("#newItem").val().length > 1) {
+            let inputValue = $("#newItem").html("value").val();
+            $("#list").append("<div class='row no-gutters bg-alternate'><div class='col-1 list-beg'><i class='fas fa-bars sortBurger'></i></div><li class='col-10 text-center'>" + inputValue + "</li><div class='col-1 list-end'><i class='far fa-circle'></i></div></div>");
+            $("#newItem").html("value").val("");
+            $("#list").find("#placeholderTask").remove();
+        } else {
+            const addL = $("#addLabel").html();
+            const err = "2 or More Characters Required";
+            if ($("#newItem").val().length === 1) {
+                $("#addLabel").append("<br><span class='shortLength'> " + err + "</span>");
+                coroutine(() => {
+                    $("#addLabel").html(addL);
+                }, 2500);
+            }
+        }
     });
 
     let coroutine = (func, time) => {
@@ -118,14 +133,20 @@ jQuery(() => {
 
     // #8:
     $("#listRenameConfirm").on("click", () => {
-        let newListName = $("#titleRename").html("value").val();
-        $("#myListName").text(newListName);
-        $("#titleRename").html("value").val("");
+        const addL = $("#addLabel").html();
+        const renameL = $("#renameLabel").html();
+        const err = "2 or More Characters Required";
+        if ($("#titleRename").val().length > 1) {
+            let newListName = $("#titleRename").html("value").val();
+            $("#myListName").text(newListName);
+            $("#titleRename").html("value").val("");
+        } else {
+            $("#renameLabel").append("<br><span class='shortLength'> " + err + "</span>");
+            coroutine(() => {
+                $("#renameLabel").html(renameL);
+            }, 2500);
+        }
     });
-
-   
-
-    placeholderTask();
 
 
     // #9:
