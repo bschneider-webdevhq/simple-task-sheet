@@ -1,4 +1,4 @@
-# simple-task-sheet
+# Simple Task Sheet
  
 Part of the **Simple Free Apps** Suite
 > A WebDevHQ, LLC Collection
@@ -18,8 +18,4 @@ Remove Completed Items
 Remove All Items
 Easy to Navigate Interface
 Animations that Respond to Your Experience
-
-## For A Cause
-// Donation Text Coming Soon
-
 
