@@ -1,7 +1,7 @@
 # Simple Task Sheet
  
 Part of the **Simple Free Apps** Suite
-> A WebDevHQ, LLC Collection
+> Created at WebDevHQ, LLC
 
 ## Description
 Name your List. Write it Down. Get it Done. Rinse and Repeat.
